@@ -1,43 +1,43 @@
 """
-Codigo para testar o pySerial para comunicação com o arduino
+Código para testar o pySerial para comunicação com o Arduino
 Autor: @DjEdu28 - Luis Eduardo
 Feiro em: 02/06/2024
 Ultima atualização: 02/06/2024
 Motivo: ajudar o amigo Daniel, gp Automação e IOT
 
-A. Esse codigo envia um texto para o arduino e espera o eco de volta e o exibe em tela.
+A. Esse código envia um texto para o Arduino e espera o eco de volta e o exibe em tela.
 B. depois inicia um loop monitor serial: 
     1 - aguardando o input do python e depois 
-    2 - enviando esse input para o arduino, depois 
-    3 - exibindo o eco do arduino
+    2 - enviando esse input para o Arduino, depois 
+    3 - exibindo o eco do Arduino
     4 - voltando ao ponto 1
 """
-print("# Codigo para testar o pySerial para comunicação com o arduino\n\n")
+print("# Código para testar o pySerial para comunicação com o Arduino\n\n")
 
-from time import sleep # para aguardar um tempo, similar ao delay do arduino
+from time import sleep # para aguardar um tempo, similar ao delay do Arduino
 from serial import Serial # importando Serial de dentro da biblioteca serial
 
 # DEFININDO A PORTA USB ONDE O ARDUINO ESTÁ CONECTADO
-# portaUSB  linux   '/dev/ttyUSB0'
-# portaUSB  windows 'COM3'
-portaUSB = 'COM8'
+# portaUSB  Linux   '/dev/ttyUSB0'
+# portaUSB  Windows 'COM3'
+portaUSB = 'COM8';
 
-# UM DOS MODOS DE INSTANCIAR O SERIAL É ATRIBUINDO A UMA VARAIVEL, MAS PRECISA LEMBRAR DE FECHALO ANTES DE TERMINAR O CODIGO
+# UM DOS MODOS DE INSTANCIAR O SERIAL É ATRIBUINDO A UMA VARÁVEL, MAS PRECISA LEMBRAR DE FECHA-LO ANTES DE TERMINAR O CODIGO
 #arduino=Serial(portaUSB, 9600);
 
 # TESTANDO SE SERIAL É ACESSIVEL
 try:
     arduino = Serial(portaUSB, 9600);
-    arduino.close()
+    arduino.close();
 except:
     print(f"""
     \n=================================
     ERRO    
     
-    Serial na porta '{portaUSB}' não é acessivel pelo python, 
-    - verifique a variavel `portaUSB`, ela deve ser o endereço do arduino, 
-      no padrão 'COMX' no windows ou '/dev/ttyUSBX' no linux
-    - se o problema persistir feche o arduino IDE e tudo que possa estar acessando essa porta serial
+    Serial na porta '{portaUSB}' não é acessível pelo python, 
+    - verifique a variável `portaUSB`, ela deve ser o endereço do Arduino, 
+      no padrão 'COMX' no windows ou '/dev/ttyUSBX' no Linux
+    - se o problema persistir feche o Arduino IDE e tudo que possa estar acessando essa porta serial
     \n=================================""")
     input();
     exit(1);
@@ -50,7 +50,7 @@ with Serial(portaUSB, 9600) as arduino:
         print("<= arduino:",resposta);
     
     # ENVIANDO TEXTO PARA O ARDUINO
-    enviar = b"testando\n"; # o b antes da " indica que é binario
+    enviar = b"testando\n"; # o b antes da " indica que é binário
     print("=> python: ", enviar);
     arduino.write(enviar);
     sleep(1);
@@ -61,7 +61,7 @@ with Serial(portaUSB, 9600) as arduino:
     print(); #pulando linha para separar dos pontos
     # RECEBENDO RESPOSTA DO ARDUINO
     resposta = arduino.read_all();
-    print("<= arduino:", resposta); #repara no print que a resposta é em binario
+    print("<= arduino:", resposta); #repara no print que a resposta é em binário
     
     print("\n","-"*40) # EXIBINDO UMA LINHA
     # ATIVANDO MODO SERIAL
@@ -71,11 +71,11 @@ with Serial(portaUSB, 9600) as arduino:
         sep="\n"
     );
     while(True): # LOOP INFINITO PARA ENVIAR TEXTO E ESPERAR ECO DO ARDUINO
-        # LENDO DADOS E CONVERTENDO EM BINARIO
+        # LENDO DADOS E CONVERTENDO EM BINÁRIO
         enviar = input("=> python: ").encode('utf-8')
-        # ENVIADNDO O INPUT PARA O ARDUINO
+        # ENVIANDO O INPUT PARA O ARDUINO
         arduino.write(enviar);
-        # ARGUARDANDO RESPOSTA DO ARDUINO
+        # AGUARDANDO RESPOSTA DO ARDUINO
         while (arduino.in_waiting == 0):
             print(".",flush=True,end="")
             sleep(.300)

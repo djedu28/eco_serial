@@ -1,12 +1,13 @@
 /*
-Codigo para testar o pySerial para comunicação com o arduino
+Código para testar o pySerial para comunicação com o Arduino
 Autor: @DjEdu28 - Luis Eduardo
 Feiro em: 02/06/2024
 Ultima atualização: 02/06/2024
 Motivo: ajudar o amigo Daniel, gp Automação e IOT
 
-A. Esse codigo espera um texto pela serial e o devolve na mesma serial,
-   escrevendo "ok - " antes do texto recebido
+A. Esse código espera um texto pela serial e o devolve na mesma serial,
+   escrevendo 
+   "ok - " antes do texto recebido
 */
 
 void setup() {
